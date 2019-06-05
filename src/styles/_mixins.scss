@@ -1,0 +1,108 @@
+@mixin width-above($breakpoint) {
+  @if map-has-key($breakpoints-width, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints-width, $breakpoint);
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin width-below($breakpoint) {
+  @if map-has-key($breakpoints-width, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints-width, $breakpoint);
+    @media (max-width: $breakpoint-value - 1) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin height-above($breakpoint) {
+  @if map-has-key($breakpoints-height, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints-height, $breakpoint);
+    @media (min-height: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin height-below($breakpoint) {
+  @if map-has-key($breakpoints-height, $breakpoint) {
+    $breakpoint-value: map-get($breakpoints-height, $breakpoint);
+    @media (max-height: $breakpoint-value - 1) {
+      @content;
+    }
+  } @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+@mixin width-between($lower, $upper) {
+  @if map-has-key($breakpoints-width, $lower) and map-has-key($breakpoints-width, $upper) {
+    $lower-breakpoint: map-get($breakpoints-width, $lower);
+    $upper-breakpoint: map-get($breakpoints-width, $upper);
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+      @content;
+    }
+  } @else {
+    @if (map-has-key($breakpoints-width, $lower) == false) {
+      @warn 'Invalid lower breakpoint: #{$lower}.';
+    }
+    @if (map-has-key($breakpoints-width, $upper) == false) {
+      @warn 'Invalid upper breakpoint: #{$upper}.';
+    }
+  }
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+@mixin gradient($from, $to) {
+  background: $from;
+  background: -webkit-linear-gradient($from, $to);
+  background: -o-linear-gradient($from, $to);
+  background: -moz-linear-gradient($from, $to);
+  background: linear-gradient($from, $to);
+}
+
+@mixin transform($transforms) {
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  -webkit-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin border-top-left-radius($radius) {
+  -webkit-border-top-left-radius: $radius;
+  -moz-border-top-left-radius: $radius;
+  -ms-border-top-left-radius: $radius;
+  -o-border-top-left-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin border-top-right-radius($radius) {
+  -webkit-border-top-right-radius: $radius;
+  -moz-border-top-right-radius: $radius;
+  -ms-border-top-right-radius: $radius;
+  -o-border-top-right-radius: $radius;
+  border-top-right-radius: $radius;
+}
