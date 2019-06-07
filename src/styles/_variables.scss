@@ -2,13 +2,14 @@
 
 @font-face {
     font-family: 'Coign-bold';
-    src: url('../assets/coign-47-bold.otf');
+    src: url('../assets/coign-46-semibold.otf');
 }
 
 $font-primary: 'Coign-bold', sans-serif;
 $font-secondary: 'Source Sans Pro', sans-serif;
 $black: #111;
 $white: #fff;
+$gray: #7c7c7c;
 
 $breakpoints-width: (
   mobile-xs: 520px,

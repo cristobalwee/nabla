@@ -4,14 +4,14 @@
 h1 {
   font-family: $font-primary;
   font-size: 250px;
-  color: $white;
+  color: $black;
   padding: 0 5rem 0;
   overflow: hidden;
 }
 
 h2 {
   font-family: $font-primary;
-  font-size: 100px;
+  font-size: 85px;
   color: $black;
 }
 
@@ -28,6 +28,31 @@ p {
 
 h1, h2, h3, p {
   margin-bottom: 0;
+}
+
+table {
+  margin: 2rem auto;
+  margin-left: -85px;
+
+  td, th {
+    border: none;
+  }
+}
+
+.big {
+  font-size: 350px;
+}
+
+.bold {
+  font-weight: 400;
+}
+
+.right {
+  text-align: right;
+}
+
+.center {
+  text-align: center;
 }
 
 .scroll-anchor {
@@ -49,41 +74,71 @@ h1, h2, h3, p {
 
 .header {
   padding: 2rem 3rem;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   opacity: 1;
   z-index: 999;
-  width: calc(100vw);
-  position: relative;
+  width: 100vw;
+  position: fixed;
 
-  a {
-    img {
-      margin-bottom: 0;
-    }
-  }
-
-  .header-links {
+  .header-inner {
+    overflow: hidden;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 
-    .link {
-      margin: 0 0 0 1.5rem;
+    a {
+      img {
+        margin-bottom: 0;
+      }
+    }
 
-      &.selected {
+    &.collapsed {
+      .header-links {
+        transform: translateX(100%);
+        transition: transform 0.5s cubic-bezier(.84,.35,.24,1);
+      }
+
+      .control-dot {
+        transition-delay: 0.4s;
+        opacity: 1;
+      }
+    }
+
+    .header-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.5s cubic-bezier(.84,.35,.24,1);
+
+      .link {
+        margin: 0 0 0 1.5rem;
+
+        &.selected {
+          a {
+            color: $black;
+            text-decoration: underline;
+          }
+        }
+
         a {
           color: $black;
-          text-decoration: underline;
+          text-decoration: none;
         }
       }
+    }
 
-      a {
-        color: $black;
-        text-decoration: none;
-      }
+    .control-dot {
+      background-color: $black;
+      display: inline-block;
+      border-radius: 50%;
+      margin: 1rem 7px;
+      cursor: pointer;
+      position: absolute;
+      right: 0;
+      margin: 0 3rem 0 0;
+      opacity: 0;
+      transition: opacity 0.25s cubic-bezier(.84,.35,.24,1) 0s;
     }
   }
 }
@@ -96,6 +151,8 @@ h1, h2, h3, p {
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+  top: 0;
+  left: 0;
 }
 
 .content {
@@ -106,9 +163,50 @@ h1, h2, h3, p {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: relative;
+  top: 40vh;
+  transform: translateY(-50%);
+}
+
+.container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding: 150px 100px;
+}
+
+.control-dot {
+  height: 10px;
+  width: 10px;
+  background-color: $gray;
+  display: inline-block;
+  border-radius: 50%;
+  margin: 1rem 7px;
+  cursor: pointer;
+
+  &.selected {
+    background-color: $black;
+  }
+}
+
+.carousel {
+  .controls {
+    text-align: center;
+  }
 }
 
 .landing {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+
+    h2 {
+      text-align: center;
+    }
+  }
+
   .landing-quote {
     background-color: $black;
     padding: 1rem;
@@ -118,30 +216,209 @@ h1, h2, h3, p {
     align-items: center;
   }
 
-  .welcome {
-    .content {
-      .content-text {
-        @include transform(translateX(-2rem));
+  .diversity-graph-container {
+    .diversity-graph {
+      display: flex;
+      justify-content: space-between;
+      width: 50vw;
+      min-width: 700px;
+      max-width: 900px;
+      margin: 3rem auto;
+      height: 345px;
+      position: relative;
 
-        h2 {
-          margin-bottom: 10px;
+      .legend {
+        position: absolute;
+        top: 0;
+        right: 0;
+        animation: bar-val-anim 0.5s ease both 0.8s;
+
+        p {
+          &::before {
+            margin-top: 4px;
+            content: '';
+            height: 1rem;
+            width: 1rem;
+            left: -25px;
+            position: absolute;
+            background-color: $black;
+          }
+
+          &:nth-child(2)::before {
+            background-color: $gray;
+          }
         }
       }
 
-      img {
-        height: 400px;
-        @include transform(translateX(2rem));
+      .bar-container {
+        display: flex;
+        align-items: flex-end;
+        position: relative;
+
+        p {
+          margin-top: 10px;
+          position: absolute;
+          transform: translateY(100%);
+          text-align: center;
+          width: 100%;
+          animation: bar-val-anim 0.5s ease both 0.8s;
+        }
+
+        .bar {
+          animation: bar-anim 0.5s cubic-bezier(.84,.35,.24,1) both 0.3s;
+          width: 70px;
+
+          h3 {
+            text-align: center;
+            animation: bar-val-anim 0.5s ease both 0.8s;
+            @include transform(translateY(-100%));
+          }
+        }
+
+        .tech {
+          background-color: $black;
+        }
+
+        .population {
+          background-color: $gray;
+          margin-left: -10px;
+        }
+
+        &.white-americans {
+          .tech {
+            height: 345px;
+          }
+
+          .population {
+            height: 320px;
+          }
+        }
+
+        &.asian-americans {
+          .tech {
+            height: 70px;
+          }
+
+          .population {
+            height: 30px;
+          }
+        }
+
+        &.hispanics {
+          .tech {
+            height: 40px;
+          }
+
+          .population {
+            height: 70px;
+          }
+        }
+
+        &.african-americans {
+          .tech {
+            height: 35px;
+          }
+
+          .population {
+            height: 70px;
+          }
+        }
       }
+    }
+  }
+
+  .diversity-women {
+    text-align: center;
+
+    .diversity-women-1, .diversity-women-2, .diversity-women-3 {
+      text-align: center;
+      max-width: 500px;
+      height: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: carousel-reveal 0.5s ease both;
+    }
+
+    .diversity-women-1 {
+      h1 {
+        margin-top: -2rem;
+      }
+    }
+
+    .diversity-women-2 {
+      .facts {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        margin: 2rem 0;
+
+        .fact-left, .fact-right {
+          border-radius: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          color: $white;
+        }
+
+        .fact-left {
+          background-color: $black;
+          width: 300px;
+          height: 300px;
+          @include transform(translateX(20px));
+
+          h1 {
+            font-size: 150px;
+            color: $white;
+          }
+        }
+
+        .fact-right {
+          background-color: $gray;
+          width: 200px;
+          height: 200px;
+          @include transform(translateX(-20px));
+
+          h2 {
+            font-size: 100px;
+            color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  .welcome {
+    width: 60vw;
+    max-width: 850px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .content-text {
+      @include transform(translateX(-2rem));
+
+      h2 {
+        text-align: left;
+        margin-bottom: 10px;
+      }
+    }
+
+    img {
+      height: 300px;
+      @include transform(translateX(2rem));
     }
   }
 }
 
 .companies-page {
   .companies {
-    position: relative;
-    width: 100vw;
-    padding: 75px 150px;
-
     h2 {
       margin-bottom: 2rem;
     }
@@ -154,6 +431,13 @@ h1, h2, h3, p {
       .company {
         h3 {
           margin: 20px 0;
+        }
+
+        .company-title {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
         }
 
         .place {
@@ -173,10 +457,6 @@ h1, h2, h3, p {
 
 .people-page {
   .people {
-    position: relative;
-    width: 100vw;
-    padding: 75px 150px;
-
     h2 {
       margin-bottom: 2rem;
     }
@@ -201,11 +481,55 @@ h1, h2, h3, p {
   }
 }
 
-@include width-above(desktop-lg) {
+@include width-above(desktop-xl) {
   h1 {
-    font-family: $font-primary;
     font-size: 300px;
-    color: $white;
     padding: 0 10rem 0;
+  }
+
+  h2 {
+    font-size: 100px;
+  }
+}
+
+@include height-above(xl) {
+  .container {
+    position: relative;
+    width: 100vw;
+    padding: 200px 150px;
+  }
+
+  .landing {
+    .diversity-graph-container {
+      .diversity-graph {
+        margin: 5rem auto;
+      }
+    }
+  }
+}
+
+@keyframes header-anim {
+  from {
+    transform: translateY(50%) rotate(15deg);
+    opacity: 0;
+  }
+}
+
+@keyframes carousel-reveal {
+  from {
+    transform: translateX(50%);
+    opacity: 0;
+  }
+}
+
+@keyframes bar-anim {
+  from {
+    height: 0;
+  }
+}
+
+@keyframes bar-val-anim {
+  from {
+    opacity: 0;
   }
 }
