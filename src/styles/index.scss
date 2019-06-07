@@ -3,7 +3,7 @@
 
 h1 {
   font-family: $font-primary;
-  font-size: 250px;
+  font-size: 200px;
   color: $black;
   padding: 0 5rem 0;
   overflow: hidden;
@@ -31,7 +31,6 @@ h1, h2, h3, p {
 }
 
 table {
-  margin: 2rem auto;
   margin-left: -85px;
 
   td, th {
@@ -39,8 +38,19 @@ table {
   }
 }
 
+.button-dark {
+  font-family: $font-secondary;
+  background-color: $black;
+  color: $white;
+  border-radius: 48px;
+  font-weight: 300;
+  padding: 10px 20px;
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+
 .big {
-  font-size: 350px;
+  font-size: 250px;
 }
 
 .bold {
@@ -55,6 +65,10 @@ table {
   text-align: center;
 }
 
+.h2-wrapper {
+  overflow: hidden;
+}
+
 .scroll-anchor {
   position: absolute;
   bottom: 1rem;
@@ -65,11 +79,34 @@ table {
   p {
     text-decoration: underline;
     margin-bottom: 10px;
+    transition: opacity 0.25s $curve;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.5;
+      transition: opacity 0.25s $curve;
+    }
+  }
+
+  img {
+    margin: 0;
   }
 }
 
 .icon {
   transform: translateY(3px);
+}
+
+.text-highlight {
+  text-decoration: underline;
+  position: relative;
+  color: $black;
+  transition: opacity 0.25s $curve;
+
+  &:hover {
+    opacity: 0.5;
+    transition: opacity 0.25s $curve;
+  }
 }
 
 .header {
@@ -89,18 +126,21 @@ table {
     a {
       img {
         margin-bottom: 0;
+        background-color: white;
+        padding: 0 10px 0 0;
       }
     }
 
     &.collapsed {
       .header-links {
         transform: translateX(100%);
-        transition: transform 0.5s cubic-bezier(.84,.35,.24,1);
+        transition: transform 0.75s $curve 0.25s;
       }
 
       .control-dot {
-        transition-delay: 0.4s;
+        transition-delay: 0.5s;
         opacity: 1;
+        pointer-events: auto;
       }
     }
 
@@ -109,15 +149,27 @@ table {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      transition: transform 0.5s cubic-bezier(.84,.35,.24,1);
+      background-color: $white;
+      padding: 10px 0;
+      transition: transform 0.5s $curve 0.25s;
 
       .link {
         margin: 0 0 0 1.5rem;
+        transition: opacity 0.25s $curve;
+
+        &:hover {
+          opacity: 0.5;
+          transition: opacity 0.25s $curve;
+        }
 
         &.selected {
           a {
             color: $black;
             text-decoration: underline;
+          }
+
+          &:hover {
+            opacity: 1;
           }
         }
 
@@ -132,13 +184,18 @@ table {
       background-color: $black;
       display: inline-block;
       border-radius: 50%;
-      margin: 1rem 7px;
       cursor: pointer;
       position: absolute;
       right: 0;
       margin: 0 3rem 0 0;
       opacity: 0;
-      transition: opacity 0.25s cubic-bezier(.84,.35,.24,1) 0s;
+      pointer-events: none;
+      transition: opacity 0.25s $curve 0s;
+
+      &:hover {
+        opacity: 0.5;
+        transition: opacity 0.25s $curve 0s;
+      }
     }
   }
 }
@@ -171,7 +228,7 @@ table {
 .container {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   padding: 150px 100px;
 }
 
@@ -195,6 +252,28 @@ table {
   }
 }
 
+.landing-quote {
+  background-color: $black;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  h1, p {
+    color: $white;
+  }
+
+  .h1-wrapper {
+    overflow: hidden;
+
+    h1 {
+      // transition: transform 0.5s $curve 0.25s;
+      // @include transform(translateY(100%));
+    }
+  }
+}
+
 .landing {
   .container {
     display: flex;
@@ -207,16 +286,18 @@ table {
     }
   }
 
-  .landing-quote {
-    background-color: $black;
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  .scroll-anchor {
+    color: $black;
+    text-align: center;
+
+    p {
+      color: $black;
+    }
   }
 
   .diversity-graph-container {
+    opacity: 0;
+
     .diversity-graph {
       display: flex;
       justify-content: space-between;
@@ -231,7 +312,6 @@ table {
         position: absolute;
         top: 0;
         right: 0;
-        animation: bar-val-anim 0.5s ease both 0.8s;
 
         p {
           &::before {
@@ -261,16 +341,13 @@ table {
           transform: translateY(100%);
           text-align: center;
           width: 100%;
-          animation: bar-val-anim 0.5s ease both 0.8s;
         }
 
         .bar {
-          animation: bar-anim 0.5s cubic-bezier(.84,.35,.24,1) both 0.3s;
           width: 70px;
 
           h3 {
             text-align: center;
-            animation: bar-val-anim 0.5s ease both 0.8s;
             @include transform(translateY(-100%));
           }
         }
@@ -325,9 +402,39 @@ table {
         }
       }
     }
+
+    &.animated {
+      opacity: 1;
+
+      h2 {
+        animation: text-reveal 0.5s ease both 0.25s;
+      }
+
+      .diversity-graph {
+        .legend {
+          animation: bar-val-anim 0.5s ease both 1s;
+        }
+
+        .bar-container {
+
+          p {
+            animation: bar-val-anim 0.5s ease both 1s;
+          }
+
+          .bar {
+            animation: bar-anim 0.5s $curve both 0.6s;
+
+            h3 {
+              animation: bar-val-anim 0.5s ease both 0.6s;
+            }
+          }
+        }
+      }
+    }
   }
 
   .diversity-women {
+    opacity: 0;
     text-align: center;
 
     .diversity-women-1, .diversity-women-2, .diversity-women-3 {
@@ -338,7 +445,6 @@ table {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      animation: carousel-reveal 0.5s ease both;
     }
 
     .diversity-women-1 {
@@ -354,7 +460,7 @@ table {
         flex-direction: row;
         justify-content: center;
         align-items: flex-end;
-        margin: 2rem 0;
+        margin: 0 0 2rem 0;
 
         .fact-left, .fact-right {
           border-radius: 50%;
@@ -389,11 +495,25 @@ table {
         }
       }
     }
+
+    &.animated {
+      opacity: 1;
+
+      .h2-wrapper {
+        h2 {
+          animation: text-reveal 0.5s ease both 0s;
+        }
+      }
+
+      .diversity-women-1, .diversity-women-2, .diversity-women-3 {
+        animation: carousel-reveal 0.5s ease both 0.5s;
+      }
+    }
   }
 
   .welcome {
     width: 60vw;
-    max-width: 850px;
+    max-width: 700px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
@@ -471,6 +591,21 @@ table {
           margin: 20px 0;
         }
 
+        .person-title {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+
+          a {
+            text-decoration: none;
+          }
+
+          img {
+            margin: 0 10px 0 0;
+          }
+        }
+
         .avi-container {
           height: 350px;
           background-size: cover;
@@ -478,6 +613,17 @@ table {
         }
       }
     }
+  }
+}
+
+@include width-above(desktop-md) {
+  h1 {
+    font-size: 250px;
+    padding: 0 5rem 0;
+  }
+
+  .big {
+    font-size: 300px;
   }
 }
 
@@ -517,7 +663,14 @@ table {
 
 @keyframes carousel-reveal {
   from {
-    transform: translateX(50%);
+    transform: translateX(15%);
+    opacity: 0;
+  }
+}
+
+@keyframes text-reveal {
+  from {
+    transform: translateY(50%);
     opacity: 0;
   }
 }

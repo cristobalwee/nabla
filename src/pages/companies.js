@@ -3,6 +3,7 @@ import { TweenMax } from 'gsap';
 import SEO from '../components/seo';
 import Header from '../components/header';
 import Company from '../components/company';
+import { data } from '../data/companyData';
 import '../styles/index.scss';
 
 class CompaniesPage extends React.Component {
@@ -17,40 +18,6 @@ class CompaniesPage extends React.Component {
   }
 
   render() {
-    const data = [
-      {
-        name: 'Google',
-        imageUrl: 'https://www.gannett-cdn.com/-mm-/ac688eec997d2fce10372bf71657297ff863814d/c=171-0-1195-768/local/-/media/2018/06/27/USATODAY/usatsports/google-headquarters-mountain-view-california.jpg'
-      },
-      {
-        name: 'Uber',
-        imageUrl: 'https://cdn-images-1.medium.com/max/1600/1*wwHFxnNNnf7xuXFaoESFSw.png'
-      },
-      {
-        name: 'Airbnb',
-        imageUrl: 'https://cdn-images-1.medium.com/max/2000/1*obu4DTlPZZF2jOQnqDQf6Q.png'
-      },
-      {
-        name: 'Square',
-        imageUrl: 'https://cdn-images-1.medium.com/max/1600/1*VgmC5XvrVIbNmBTGEulJHw.png'
-      },
-      {
-        name: 'Google',
-        imageUrl: 'https://www.gannett-cdn.com/-mm-/ac688eec997d2fce10372bf71657297ff863814d/c=171-0-1195-768/local/-/media/2018/06/27/USATODAY/usatsports/google-headquarters-mountain-view-california.jpg'
-      },
-      {
-        name: 'Uber',
-        imageUrl: 'https://cdn-images-1.medium.com/max/1600/1*wwHFxnNNnf7xuXFaoESFSw.png'
-      },
-      {
-        name: 'Airbnb',
-        imageUrl: 'https://cdn-images-1.medium.com/max/2000/1*obu4DTlPZZF2jOQnqDQf6Q.png'
-      },
-      {
-        name: 'Square',
-        imageUrl: 'https://cdn-images-1.medium.com/max/1600/1*VgmC5XvrVIbNmBTGEulJHw.png'
-      }
-    ];
     this.companies = [];
 
     return (

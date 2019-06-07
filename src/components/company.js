@@ -14,7 +14,7 @@ class Company extends React.Component {
           <h3>{ name }</h3>
           <h3>100</h3>
         </div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta lorem velit.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta lorem velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed porta lorem velit.</p>
       </div>
     );
   }

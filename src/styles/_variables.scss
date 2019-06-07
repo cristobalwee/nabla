@@ -10,6 +10,7 @@ $font-secondary: 'Source Sans Pro', sans-serif;
 $black: #111;
 $white: #fff;
 $gray: #7c7c7c;
+$curve: cubic-bezier(.84,.35,.24,1);
 
 $breakpoints-width: (
   mobile-xs: 520px,
@@ -17,7 +18,7 @@ $breakpoints-width: (
   mobile-md: 768px,
   mobile-lg: 840px,
   desktop-sm: 992px,
-  desktop-md: 1200px,
+  desktop-md: 1225px,
   desktop-lg: 1440px,
   desktop-xl: 2100px
 );
